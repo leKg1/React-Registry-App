@@ -24,7 +24,7 @@ React Registry App is a web application for creating, editing, and managing reco
 
 1. **Clone the Repository**
    ```bash
-   git clone [Your GitHub Repository URL]
+   git clone https://github.com/leKg1/React-Registry-App.git
    ```
 2. **Install Dependencies**
 
