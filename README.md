@@ -32,17 +32,20 @@ React Registry App is a web application for creating, editing, and managing reco
   ```bash
   npm install
   ```
+- In the second terminal navigate to api folder(src/api) and run:
+  ```bash
+  cd src/api
+  npm install
+  ```
 
 3. **Start the Application**
 
-- To start the frontend:
+- To start the frontend(make sure you are in the project directory):
   ```bash
   npm start
   ```
 - To start the backend server (src/api):
   ```bash
-  cd src/api
-  npm install
   npm start
   ```
 
