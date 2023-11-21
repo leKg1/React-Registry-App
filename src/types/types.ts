@@ -87,3 +87,8 @@ export interface MessageModalProps {
   linkText?: string;
   recordId?: number;
 }
+
+export interface CustomLinkProps {
+  to: string;
+  label: string;
+}
