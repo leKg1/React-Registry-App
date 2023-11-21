@@ -20,30 +20,31 @@ const Home: React.FC = () => {
   return (
     <Container maxWidth="md">
       <Paper
-        elevation={6}
+        elevation={3}
         sx={{
           mt: 8,
           p: 6,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          backgroundColor: "rgba(255, 255, 255, 0.9)",
+          backdropFilter: "blur(10px)",
         }}
       >
-        <Typography variant="h3" component="h1" gutterBottom>
-          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-            <HomeIcon color="primary" sx={{ fontSize: 40, mr: 2 }} />
+        <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+          <HomeIcon color="primary" sx={{ fontSize: 40, mr: 2 }} />
+          <Typography variant="h3" component="h1" gutterBottom>
             Welcome to the Registry App
-          </Box>
-        </Typography>
-        <Typography variant="h5" sx={{ mb: 4 }}>
+          </Typography>
+        </Box>
+        <Typography variant="h5" sx={{ mb: 4, textAlign: "center" }}>
           Manage your records with ease
         </Typography>
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={2} justifyContent="center">
           <Button
             variant="contained"
             color="primary"
             onClick={navigateToCreate}
-            sx={{ mr: 2 }}
           >
             Create Record
           </Button>
