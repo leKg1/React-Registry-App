@@ -36,9 +36,15 @@ const validationSchema = Yup.object().shape({
   country: Yup.string().required("Country is required"),
   state: Yup.string().required("State is required"),
   agreementType: Yup.string().required("Agreement type is required"),
-  acceptLicense: Yup.bool().oneOf(
-    [true],
-    "You must accept the license agreement"
+  acceptLicense: Yup.boolean().test(
+    "is-license-agreement",
+    "You must accept the license agreement",
+    function (value) {
+      // Check if the agreementType is 'license' and if acceptLicense is true
+      //  if not 'license', the condition is ignored
+      const { agreementType } = this.parent;
+      return agreementType !== "license" || value === true;
+    }
   ),
 });
 
@@ -63,6 +69,7 @@ const RecordForm: React.FC<RecordFormProps> = ({
         (c) => c.name === initialValues.country
       );
       if (selectedCountry) {
+        setCountries(Country.getAllCountries());
         setStates(State.getStatesOfCountry(selectedCountry.isoCode));
       }
     }
@@ -159,7 +166,7 @@ const RecordForm: React.FC<RecordFormProps> = ({
           {({ values, errors, touched, setFieldValue, isSubmitting }) => {
             return (
               <Form>
-                <Grid container spacing={2} justifyContent="center" ml={"10%"}>
+                <Grid container spacing={2} justifyContent="center" ml={"13%"}>
                   {/* Form fields structured within Grid for layout */}
                   <Grid item xs={12} md={6}>
                     <Field
@@ -207,19 +214,22 @@ const RecordForm: React.FC<RecordFormProps> = ({
                       select
                       SelectProps={{ native: true }}
                       name="country"
-                      value={values.country}
                       onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                         handleCountryChange(e, setFieldValue)
                       }
                       error={touched.country && Boolean(errors.country)}
                       helperText={touched.country && errors.country}
                     >
-                      <option value="">Select Country</option>
-                      {countries.map((country, index) => (
-                        <option key={index} value={country.isoCode}>
-                          {country.name}
-                        </option>
-                      ))}
+                      <option value="">
+                        {mode === "edit" ? values.country : "Select Country"}
+                      </option>
+                      {countries.map((country, index) => {
+                        return (
+                          <option key={index} value={country.isoCode}>
+                            {country.name}
+                          </option>
+                        );
+                      })}
                     </Field>
                   </Grid>
                   <Grid item xs={12} md={6}>
